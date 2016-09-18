@@ -6,11 +6,20 @@
   "scripts": {
     "start-linux": "./node_modules/.bin/electron .",
     "start-windows": "start /b node_modules\\.bin\\electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp-watch": "gulp watch"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "electron-prebuilt": "^1.4.0"
+    "electron-prebuilt": "^1.4.0",
+    "gulp": "^3.9.1",
+    "gulp-less": "^3.1.0",
+    "gulp-live-server": "0.0.30",
+    "gulp-livereload": "^3.8.1"
+  },
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "request": "^2.75.0"
   }
 }
