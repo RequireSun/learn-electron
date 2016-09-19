@@ -4,11 +4,15 @@
 'use strict';
 
 const Electron = require('electron');
-const { app, BrowserWindow, ipcMain } = Electron;
+const { app, BrowserWindow, ipcMain, Tray, Menu } = Electron;
 
 let mainWindow;
+let trayIcon;
 
 const createWindow = () => {
+    const contextMenu = Menu.buildFronTemplate([]);
+    trayIcon = new Tray('./dist/image/trayIcon.svg');
+    trayIcon.setToolTip('自动申请访问外网后台运行中...');
     mainWindow = new BrowserWindow({
         // width    : 200,
         // height   : 160,

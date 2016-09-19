@@ -31,7 +31,13 @@ gulp.task('html', () => {
     gulp.src(dev('*.html'))
         .pipe(gulp.dest(dist('./')))
         .pipe(liveReload());
-})
+});
+
+gulp.task('image', () => {
+    gulp.src(dev('image/*.*'))
+        .pipe(gulp.dest(dist('image')))
+        .pipe(liveReload());
+});
 
 gulp.task('watch', ['less', 'javascript', 'html'], () => {
     liveReload.listen();
