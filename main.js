@@ -9,10 +9,20 @@ const { app, BrowserWindow, ipcMain, Tray, Menu } = Electron;
 let mainWindow;
 let trayIcon;
 
-const createWindow = () => {
-    const contextMenu = Menu.buildFronTemplate([]);
-    trayIcon = new Tray('./dist/image/trayIcon.svg');
+const createTray = () => {
+    const contextMenu = Menu.buildFromTemplate([
+        { label: '显示面板', type: 'normal', click: () => app.emit('show-hide') },
+        { type: 'separator' },
+        { label: '退出', type: 'normal', click: () => app.quit() },
+    ]);
+    trayIcon = new Tray('./dist/image/tray_icon.png');
     trayIcon.setToolTip('自动申请访问外网后台运行中...');
+    trayIcon.setContextMenu(contextMenu);
+    trayIcon.on('click', () => { trayIcon.popUpContextMenu() });
+    trayIcon.on('double-click', () => app.emit('show-hide'));
+};
+
+const createWindow = () => {
     mainWindow = new BrowserWindow({
         // width    : 200,
         // height   : 160,
@@ -23,15 +33,17 @@ const createWindow = () => {
     });
     mainWindow.loadURL(`file://${__dirname}/dist/index.html`);
 
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
 
     mainWindow.on('closed', () => mainWindow = null);
 };
 
-app.on('ready', createWindow);
-
-app.on('window-all-closed', () => 'darwin' !== process.platform && app.quit());
+app.on('ready', () => (createTray(), createWindow()));
 
 app.on('active', () => null === mainWindow && createWindow());
 
-ipcMain.on('close-main-window', () => app.quit());
+app.on('show-hide', () => mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show());
+
+// app.on('window-all-closed', () => 'darwin' !== process.platform && app.quit());
+
+// ipcMain.on('close-main-window', () => (console.log(2), mainWindow.emit('close')));

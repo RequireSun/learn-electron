@@ -34,17 +34,18 @@ gulp.task('html', () => {
 });
 
 gulp.task('image', () => {
-    gulp.src(dev('image/*.*'))
+    gulp.src(dev('image/*'))
         .pipe(gulp.dest(dist('image')))
         .pipe(liveReload());
 });
 
-gulp.task('watch', ['less', 'javascript', 'html'], () => {
+gulp.task('watch', ['less', 'javascript', 'html', 'image'], () => {
     liveReload.listen();
 
     gulp.watch(dev('style/*.less'), ['less']);
     gulp.watch(dev('script/*.js'), ['javascript']);
     gulp.watch(dev('*.html'), ['html']);
+    gulp.watch(dev('image/*'), ['image']);
 });
 
-gulp.task('dist', ['less', 'javascript', 'html']);
+gulp.task('dist', ['less', 'javascript', 'html', 'image']);

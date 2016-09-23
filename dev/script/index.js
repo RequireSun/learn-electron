@@ -3,7 +3,7 @@
  */
 'use strict';
 
-const { ipcRenderer }= require('electron');
+const { ipcRenderer, remote }= require('electron');
 
 document.getElementById('btn-close')
-        .addEventListener('click', () => ipcRenderer.send('close-main-window'));
+        .addEventListener('click', () => remote.getCurrentWindow().hide());
