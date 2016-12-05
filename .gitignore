@@ -38,3 +38,6 @@ jspm_packages
 
 # Generated files
 dist
+
+# Idea config
+.idea

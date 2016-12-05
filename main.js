@@ -5,6 +5,7 @@
 
 const Electron = require('electron');
 const { app, BrowserWindow, ipcMain, Tray, Menu } = Electron;
+const network = require('./logic/network');
 
 let mainWindow;
 let trayIcon;
@@ -18,7 +19,7 @@ const createTray = () => {
     trayIcon = new Tray('./dist/image/tray_icon.png');
     trayIcon.setToolTip('自动申请访问外网后台运行中...');
     trayIcon.setContextMenu(contextMenu);
-    trayIcon.on('click', () => { trayIcon.popUpContextMenu() });
+    // trayIcon.on('click', () => { trayIcon.popUpContextMenu() });
     trayIcon.on('double-click', () => app.emit('show-hide'));
 };
 
@@ -38,7 +39,17 @@ const createWindow = () => {
     mainWindow.on('closed', () => mainWindow = null);
 };
 
-app.on('ready', () => (createTray(), createWindow()));
+const bindEvent = () => {
+    ipcMain.on('get-remain-request', event => {
+        network.query(
+            (error, remain) =>
+                error ?
+                    event.sender.send('get-remain-error', error) :
+                    event.sender.send('get-remain-success', remain), false);
+    });
+};
+
+app.on('ready', () => (createTray(), createWindow(), bindEvent()));
 
 app.on('active', () => null === mainWindow && createWindow());
 
