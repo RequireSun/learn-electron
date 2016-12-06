@@ -3,7 +3,7 @@
  */
 
 class NetworkError extends Error {
-    constructor (message = 'Something get wrong with network', fileName, lineNumber) {
+    constructor (message = 'Something get wrong with network', fileName = undefined, lineNumber = undefined) {
         super(message, fileName, lineNumber);
         this.name    = this.constructor.name;
         this.message = message;
@@ -19,7 +19,7 @@ class NetworkError extends Error {
  * @property message
  */
 class ApplyError extends Error {
-    constructor (message = 'Failed to _apply network access permission', fileName, lineNumber) {
+    constructor (message = 'Failed to _apply network access permission', fileName = undefined, lineNumber = undefined) {
         super(message, fileName, lineNumber);
         this.name    = this.constructor.name;
         this.message = message;

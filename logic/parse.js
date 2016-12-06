@@ -7,11 +7,11 @@ const getRemainTime = $ => {
         return 0;
     } else {
         let time = $('#AuthIpDivClick').text().trim();
-        if (time.contains('访问外网时间剩余不足1分钟。请您稍后重新申请')) {
+        if (time.includes('访问外网时间剩余不足1分钟。请您稍后重新申请')) {
             time = 1;
         } else {
-            time = time.replace('访问外网时间剩余', '').replace('分钟', '');
-            if (time.contains('小时')) {
+            time = time.replace('访问外网时间剩余', '').replace('分钟', '').replace('。', '');
+            if (time.includes('小时')) {
                 time = time.split('小时');
                 time = time[0] * 60 + time[1] * 1;
             }
@@ -22,7 +22,13 @@ const getRemainTime = $ => {
 
 const needApply = $ => 'block' === $('#NoAuthIpDiv').css('display');
 
-const getForm = $ => $('#btnDevTempVisit').parents('form');
+const getForm = $ => parseForm($('#btnDevTempVisit').parents('form'));
+
+const parseForm = form => {
+    const params = {};
+    form.serializeArray().forEach(item => params[item['name']] = item['value']);
+    return params;
+};
 
 module.exports = { getRemainTime, getForm, };
 

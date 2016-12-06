@@ -3,13 +3,15 @@
  */
 'use strict';
 
-const request = require('request');
+const request = require('request').defaults({ jar: true, });
 const cheerio = require('cheerio');
+const iconv   = require('iconv-lite');
 const { NetworkError, ApplyError, } = require('./error');
 const parse   = require('./parse');
 
 const networkConfig = {
-    url: '//auth-proxy.oa.com/DevNetTempVisit.aspx',
+    url  : 'http://auth-proxy.oa.com/DevNetTempVisit.aspx',
+    proxy: 'http://127.0.0.1:8080',
 };
 
 const query = (callback, isForce) =>
@@ -43,7 +45,7 @@ const query = (callback, isForce) =>
 
 const _apply = (callback, formData) =>
     request.post(
-        Object.assign({}, networkConfig, parseForm(formData)),
+        Object.assign({}, networkConfig, { form: formData, }),
         (error, response, body) => {
             if (!error && 200 === response.statusCode) {
                 callback(null, cheerio.load(body));
@@ -53,11 +55,6 @@ const _apply = (callback, formData) =>
         }
     );
 
-const parseForm = form => {
-    const params = {};
-    form.serializeArray().forEach(item => params[item['name']] = item['value']);
-    return params;
-};
 // const params = {};
 // form.serializeArray().forEach(item => params[item['name']] = item['value']);
 

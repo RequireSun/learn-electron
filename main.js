@@ -16,7 +16,7 @@ const createTray = () => {
         { type: 'separator' },
         { label: '退出', type: 'normal', click: () => app.quit() },
     ]);
-    trayIcon = new Tray('./dist/image/tray_icon.png');
+    trayIcon = new Tray('./resource/image/tray_icon.png');
     trayIcon.setToolTip('自动申请访问外网后台运行中...');
     trayIcon.setContextMenu(contextMenu);
     // trayIcon.on('click', () => { trayIcon.popUpContextMenu() });

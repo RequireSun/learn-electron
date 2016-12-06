@@ -3,7 +3,10 @@
  */
 'use strict';
 
-const { ipcRenderer, remote }= require('electron');
+//require('../style/index.less');
+
+const { ipcRenderer, remote } = require('electron');
+const Countdown = require('@requiresun/countdown');
 
 document.getElementById('btn-get')
         .addEventListener('click', () => ipcRenderer.send('get-remain-request'));
@@ -14,3 +17,8 @@ ipcRenderer.on('get-remain-error', (event, error) => console.error(error));
 
 document.getElementById('btn-close')
         .addEventListener('click', () => remote.getCurrentWindow().hide());
+
+new Countdown({
+    endTime: Date.now() + 10000,
+    onTick: remain => console.log(remain),
+});
