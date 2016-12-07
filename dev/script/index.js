@@ -23,3 +23,5 @@ new Countdown({
     endTime: Date.now() + 10000,
     onTick: remain => console.log(remain),
 });
+
+console.log(1234);

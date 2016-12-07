@@ -6,15 +6,16 @@
 const Electron = require('electron');
 const { app, BrowserWindow, ipcMain, Tray, Menu } = Electron;
 const network = require('./logic/network');
+const isDev   = require('electron-is-dev');
 
 let mainWindow;
 let trayIcon;
 
 const createTray = () => {
     const contextMenu = Menu.buildFromTemplate([
-        { label: '显示面板', type: 'normal', click: () => app.emit('show-hide') },
-        { type: 'separator' },
-        { label: '退出', type: 'normal', click: () => app.quit() },
+        { label: '显示面板', type: 'normal', click: () => app.emit('show-hide'), },
+        { type: 'separator', },
+        { label: '退出', type: 'normal', click: () => app.quit(), },
     ]);
     trayIcon = new Tray('./resource/image/tray_icon.png');
     trayIcon.setToolTip('自动申请访问外网后台运行中...');
@@ -32,7 +33,11 @@ const createWindow = () => {
         resizable: false,
         frame    : false,
     });
-    mainWindow.loadURL(`file://${__dirname}/dist/index.html`);
+    mainWindow.loadURL(
+        isDev ?
+        'http://127.0.0.1:8008/dist/index.html' :
+        `file://${__dirname}/dist/index.html`
+    );
 
     // mainWindow.webContents.openDevTools();
 

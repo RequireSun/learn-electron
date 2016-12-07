@@ -11,8 +11,8 @@
     "clean": "rimraf lib dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "gulp-watch": "gulp watch",
-    "webpack": "npm run clean && webpack --progress --colors",
-    "watch": "npm run clean && webpack --progress --colors --watch"
+    "webpack": "npm run clean && webpack --progress --colors --config webpack.config.development.js",
+    "watch": "npm run clean && webpack-dev-server --progress --colors --content-base dev/ --port=8008 --hot --inline --config webpack.config.production.js"
   },
   "author": "Require Sun <kelvinsen@outlook.com> (https://github.com/RequireSun)",
   "repository": {
@@ -36,11 +36,13 @@
     "less-loader": "^2.2.3",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.3"
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
     "@requiresun/countdown": "^1.0.0",
     "cheerio": "^0.22.0",
+    "electron-is-dev": "^0.1.2",
     "iconv-lite": "^0.4.15",
     "request": "^2.75.0"
   }

@@ -1,24 +1,27 @@
 /**
  * Created by kelvinsun on 2016/12/6.
  */
+'use strict';
 
-const path = require('path');
-const ExtractTextPlugin     = require('extract-text-webpack-plugin');
+const path    = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-let htmlExtractor = new ExtractTextPlugin('./[name].html');
-let lessExtractor = new ExtractTextPlugin('./style/[name].css');
+const htmlExtractor = new ExtractTextPlugin('./[name].html');
+const lessExtractor = new ExtractTextPlugin('./style/[name].css');
 
 const outputDir      = './dist',
       outputFilename = 'script/index.js';
 
 module.exports = {
     entry : {
-        index: './dev/script/index.js',
+        index: [ './dev/script/index.js', ],
     },
     target: 'atom',
     output: {
-        path    : outputDir,
-        filename: outputFilename,
+        path      : outputDir,
+        publicPath: 'http://127.0.0.1:8008/dist/',
+        filename  : outputFilename,
     },
     module: {
         loaders: [{
@@ -39,7 +42,13 @@ module.exports = {
             include: [ path.resolve(__dirname, 'dev'), ],
         }],
     },
+    // externals: {
+    //     electron: 'electron',
+    // },
     plugins: [
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        // new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin(),
         lessExtractor,
         htmlExtractor,
     ],
