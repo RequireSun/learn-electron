@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@requiresun/countdown": "^1.0.0",
+    "bootstrap": "^3.3.7",
     "cheerio": "^0.22.0",
     "electron-is-dev": "^0.1.2",
     "iconv-lite": "^0.4.15",
