@@ -32,6 +32,7 @@
     "gulp-less": "^3.1.0",
     "gulp-live-server": "0.0.30",
     "gulp-livereload": "^3.8.1",
+    "html-loader": "^0.4.4",
     "less-loader": "^2.2.3",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",

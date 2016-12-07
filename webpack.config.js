@@ -3,9 +3,10 @@
  */
 
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin     = require('extract-text-webpack-plugin');
 
-let lessExtractor = new ExtractTextPlugin('./style/index.css');
+let htmlExtractor = new ExtractTextPlugin('./[name].html');
+let lessExtractor = new ExtractTextPlugin('./style/[name].css');
 
 const outputDir      = './dist',
       outputFilename = 'script/index.js';
@@ -13,9 +14,7 @@ const outputDir      = './dist',
 module.exports = {
     entry : {
         index: './dev/script/index.js',
-        style: './dev/style/index.less',
     },
-    //watch : true,
     target: 'atom',
     output: {
         path    : outputDir,
@@ -31,12 +30,17 @@ module.exports = {
             test  : /\.css$/i,
             loader: ExtractTextPlugin.extract(['css-loader']),
         }, {
-            test   : /index\.less$/i,
-            loader : lessExtractor.extract(['css-loader', 'less-loader']),
+            test   : /\.less$/i,
+            loader : lessExtractor.extract([ 'css-loader', 'less-loader', ]),
             include: [ path.resolve(__dirname, 'dev/style'), ],
-        },],
+        }, {
+            test   : /\.html$/i,
+            loader : htmlExtractor.extract([ 'html?minimize=true', ]),
+            include: [ path.resolve(__dirname, 'dev'), ],
+        }],
     },
     plugins: [
         lessExtractor,
+        htmlExtractor,
     ],
 };

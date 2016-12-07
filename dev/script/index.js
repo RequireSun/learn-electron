@@ -3,7 +3,8 @@
  */
 'use strict';
 
-//require('../style/index.less');
+require('../index.html');
+require('../style/index.less');
 
 const { ipcRenderer, remote } = require('electron');
 const Countdown = require('@requiresun/countdown');
