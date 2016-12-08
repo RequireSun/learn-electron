@@ -1,4 +1,6 @@
 @import "~bootstrap/less/normalize";
+@import "variable";
+@import "icon";
 
 html, body {
   font-size: 100px;
@@ -14,10 +16,31 @@ input, select, button {
   min-height: 100vh;
 
   aside.toolbar {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     order: -1;
     flex: 0 0 .4rem;
     border-radius: .05rem 0 0 .05rem;
     background-color: #fff;
+
+    &>button {
+      display: block;
+      flex: 0 0 .4rem;
+      width: 100%;
+      padding: 0;
+      border: none;
+
+      &>.icon-remove {
+        align-self: flex-end;
+      }
+    }
+
+    &>.space {
+      flex: 1;
+    }
   }
 
   .main {

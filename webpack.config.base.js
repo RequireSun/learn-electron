@@ -26,7 +26,7 @@ module.exports = {
     module: {
         loaders: [{
             test   : /\.js$/i,
-            loader : 'babel',
+            loader : 'babel-loader',
             include: [ path.resolve(__dirname, 'dev/script'), ],
             query  : { presets: [ 'es2015', ], },
         }, {
@@ -38,13 +38,10 @@ module.exports = {
             include: [ path.resolve(__dirname, 'dev/style'), ],
         }, {
             test   : /\.html$/i,
-            loader : htmlExtractor.extract([ 'html?minimize=true', ]),
+            loader : htmlExtractor.extract([ 'html-loader?minimize=true', ]),
             include: [ path.resolve(__dirname, 'dev'), ],
         }],
     },
-    // externals: {
-    //     electron: 'electron',
-    // },
     plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
         // new webpack.HotModuleReplacementPlugin(),
