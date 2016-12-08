@@ -2,25 +2,27 @@
 
 html, body {
   font-size: 100px;
-  -webkit-app-region: drag;
 }
 
-button {
+input, select, button {
   -webkit-app-region: no-drag;
 }
 
 .stage {
+  -webkit-app-region: drag;
   display: flex;
   min-height: 100vh;
 
   aside.toolbar {
     order: -1;
     flex: 0 0 .4rem;
+    border-radius: .05rem 0 0 .05rem;
     background-color: #fff;
   }
 
   .main {
     flex: 1;
+    border-radius: 0 .05rem .05rem 0;
     background: linear-gradient(to right, #eee, #f3f3f3 5%, #f5f5f5);
   }
 }

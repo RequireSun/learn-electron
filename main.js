@@ -32,6 +32,8 @@ const createWindow = () => {
         height   : 600,
         resizable: false,
         frame    : false,
+        transparent  : true,
+        titleBarStyle: 'hidden',
     });
     mainWindow.loadURL(
         isDev ?
