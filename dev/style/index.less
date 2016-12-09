@@ -2,11 +2,8 @@
 @import "variable";
 @import "icon";
 
-html, body {
-  font-size: 100px;
-}
-
-input, select, button {
+input, select, button, textarea {
+  outline: none;
   -webkit-app-region: no-drag;
 }
 
@@ -24,7 +21,7 @@ input, select, button {
     order: -1;
     flex: 0 0 .4rem;
     border-radius: .05rem 0 0 .05rem;
-    background-color: #fff;
+    background-color: @color-background;
 
     &>button {
       display: block;
@@ -32,9 +29,13 @@ input, select, button {
       width: 100%;
       padding: 0;
       border: none;
+      background-color: transparent;
 
-      &>.icon-remove {
-        align-self: flex-end;
+      &:hover {
+        background-color: @color-background__hover;
+      }
+      &:active {
+        background-color: @color-background__active;
       }
     }
 

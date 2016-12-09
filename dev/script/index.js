@@ -5,6 +5,7 @@
 
 require('../index.html');
 require('../style/index.less');
+require('./clientWidth');
 
 const { ipcRenderer, remote } = require('electron');
 const Countdown = require('@requiresun/countdown');
