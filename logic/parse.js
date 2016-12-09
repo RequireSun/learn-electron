@@ -3,7 +3,9 @@
  */
 
 const getRemainTime = $ => {
-    if (needApply($)) {
+    if (needVerification($)) {
+        return -1;
+    } else if (needApply($)) {
         return 0;
     } else {
         let time = $('#AuthIpDivClick').text().trim();
@@ -20,6 +22,8 @@ const getRemainTime = $ => {
     }
 };
 
+const needVerification = $ => !!$('#cap_iframe').length;
+
 const needApply = $ => 'block' === $('#NoAuthIpDiv').css('display');
 
 const getForm = $ => parseForm($('#btnDevTempVisit').parents('form'));
@@ -27,6 +31,7 @@ const getForm = $ => parseForm($('#btnDevTempVisit').parents('form'));
 const parseForm = form => {
     const params = {};
     form.serializeArray().forEach(item => params[item['name']] = item['value']);
+    params['btnDevTempVisit'] = '';
     return params;
 };
 

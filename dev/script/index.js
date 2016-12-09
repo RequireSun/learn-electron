@@ -10,19 +10,30 @@ require('./clientWidth');
 const { ipcRenderer, remote } = require('electron');
 const Countdown = require('@requiresun/countdown');
 
-document.getElementById('btn-get')
-        .addEventListener('click', () => ipcRenderer.send('get-remain-request'));
+let cd;
 
-ipcRenderer.on('get-remain-success', (event, remain) => console.log(remain));
+const calcTime = remain => [Math.floor(Math.floor(remain / 60) / 60), Math.floor(remain / 60) % 60, remain % 60];
+
+document.getElementById('btn-get')
+        .addEventListener('click', () => ipcRenderer.send('xu-ming'));
+
+ipcRenderer.on('get-remain-success', (event, remain) => {
+    if (10 <= remain) {
+        if (!!cd) {
+            cd.abort();
+        }
+        cd = new Countdown({
+            endTime: Date.now() + 7 * 60 * 1000,    // 五分钟倒计时
+            onTick: rm => console.log(calcTime(remain * 60 + Math.round(rm / 1000) - 7 * 60))
+        });
+    } else {
+        ipcRenderer.send('xu-ming');
+    }
+});
 
 ipcRenderer.on('get-remain-error', (event, error) => console.error(error));
 
 document.getElementById('btn-close')
         .addEventListener('click', () => remote.getCurrentWindow().hide());
 
-new Countdown({
-    endTime: Date.now() + 10000,
-    onTick: remain => console.log(remain),
-});
-
-console.log(1234);
+ipcRenderer.send('get-remain-request');

@@ -47,13 +47,21 @@ const createWindow = () => {
 };
 
 const bindEvent = () => {
-    ipcMain.on('get-remain-request', event => {
+    ipcMain.on('get-remain-request', event =>
         network.query(
             (error, remain) =>
                 error ?
                     event.sender.send('get-remain-error', error) :
-                    event.sender.send('get-remain-success', remain), false);
-    });
+                    event.sender.send('get-remain-success', remain), false)
+    );
+
+    ipcMain.on('xu-ming', event =>
+        network.query(
+            (error, remain) =>
+                error ?
+                    event.sender.send('get-remain-error', error) :
+                    event.sender.send('get-remain-success', remain), true)
+    );
 };
 
 app.on('ready', () => (createTray(), createWindow(), bindEvent()));
