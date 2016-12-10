@@ -25,6 +25,9 @@ module.exports = {
     },
     module: {
         loaders: [{
+            test  : /\.vue$/i,
+            loader: 'vue,'
+        }, {
             test   : /\.js$/i,
             loader : 'babel-loader',
             include: [ path.resolve(__dirname, 'dev/script'), ],

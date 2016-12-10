@@ -3,19 +3,28 @@
  */
 'use strict';
 
-require('../index.html');
-require('../style/index.less');
-require('./clientWidth');
+import '../index.html';
+import '../style/index.less';
+import './clientWidth';
 
-const { ipcRenderer, remote } = require('electron');
-const Countdown = require('@requiresun/countdown');
+// import { ipcRenderer, remote } from 'electron';
+// import Countdown from '@requiresun/countdown';
+import Vue from 'vue';
+import View from './view';
+import store from './store';
 
-let cd;
+new Vue({
+    el: '#business',
+    store,
+    render: h => h(View),
+});
 
-const calcTime = remain => [Math.floor(Math.floor(remain / 60) / 60), Math.floor(remain / 60) % 60, remain % 60];
+// let cd;
+//
+// const calcTime = remain => [Math.floor(Math.floor(remain / 60) / 60), Math.floor(remain / 60) % 60, remain % 60];
 
-document.getElementById('btn-get')
-        .addEventListener('click', () => ipcRenderer.send('xu-ming'));
+// document.getElementById('btn-get')
+//         .addEventListener('click', () => ipcRenderer.send('xu-ming'));
 
 ipcRenderer.on('get-remain-success', (event, remain) => {
     if (10 <= remain) {
